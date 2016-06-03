@@ -4,6 +4,10 @@
 # USB reverse-engineering of WENSN WS1361 SPL Meter courtesy of http://www.ebswift.com/reverse-engineering-spl-usb.html
 # Python code to send to OpenTDSB courtesy of https://github.com/runabove/iot-push-examples/tree/master/Python
 #
+# sends the following metrics:
+# moving average of sound level: soundLevel
+# peak of sound level: soundLevel.peak
+#
 import sys
 import usb.core #from pyusb
 import time
@@ -96,8 +100,10 @@ while True:
 	if(count >= 2 * movingAverageWindowLength and (count % movingAverageWindowLength == 0)):
                 mAvgDB = int(mAvg[-1])
                 #print ("moving Avg= {}".format(mAvgDB))
-                sendMetricToOpenTSDB("soundLevel.work",mAvgDB,writeID,key,url,port,proxies)               
+                sendMetricToOpenTSDB("soundLevel",mAvgDB,writeID,key,url,port,proxies)
+                sendMetricToOpenTSDB("soundLevel.peak",peak,writeID,key,url,port,proxies)
                 count = 0
+                peak = 0
         #no need to scan SPL Meter faster since it outputs a 2s moving average of SPL                
 	time.sleep(2)
 	count = count + 1
