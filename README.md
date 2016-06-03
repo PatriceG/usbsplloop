@@ -32,6 +32,13 @@ On Windows, to run without a console windows, the script is run via
 pythonw usbsplloop.py
 ```
 
+#Metrics sent
+The script sends the following metrics:
+
+`soundLevel` : 5 minute moving average of sound level 
+`soundLevel.peak` : sound level peak (max instantaneous value per 5 min interval)
+
+
 
 #Viewing Data
 Data may be viewed via a tool such as Grafana for instance, connected to your OpenTSDB server:
