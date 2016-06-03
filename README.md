@@ -36,6 +36,7 @@ pythonw usbsplloop.py
 The script sends the following metrics:
 
 `soundLevel` : 5 minute moving average of sound level 
+
 `soundLevel.peak` : sound level peak (max instantaneous value per 5 min interval)
 
 
